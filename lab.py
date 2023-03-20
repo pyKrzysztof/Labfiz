@@ -117,8 +117,8 @@ class Cwiczenie:
         return values
 
     def convert_values(self, names, q):
-        if not isinstance(names, list):
-            names = [names, ]
+        if isinstance(names, str):
+            names = [name.strip() for name in names.split(',')]
         for name in names:
             idx, col = self._find_arg_table(name)
             if idx == 0:
@@ -147,6 +147,8 @@ class Cwiczenie:
             print(f"Linear regression:\na = {a}\nb = {b}")
 
         xs = np.linspace(min(x), max(x), num=100)
+        if xlim is not None:
+            xs = np.linspace(xlim[0], xlim[1], num=100)
         plt.plot(xs, a*xs+b, color="k", lw=2.5, alpha=0.7)
         plt.scatter(x, y, edgecolors="k")
 
